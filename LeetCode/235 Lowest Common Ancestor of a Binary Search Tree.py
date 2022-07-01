@@ -13,16 +13,16 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         #time O(log(n)) bcz u either go left/right/return
         #space O(1)
-#         if p.val == root.val:
-#             return p
-#         if q.val == root.val:
-#             return q
-#         if p.val<root.val and q.val < root.val:
-#             return self.lowestCommonAncestor(root.left,p,q)
-#         if p.val>root.val and q.val>root.val:
-#             return self.lowestCommonAncestor(root.right,p,q)
-#         else:
-#             return root
+    #         if p.val == root.val:
+    #             return p
+    #         if q.val == root.val:
+    #             return q
+    #         if p.val<root.val and q.val < root.val:
+    #             return self.lowestCommonAncestor(root.left,p,q)
+    #         if p.val>root.val and q.val>root.val:
+    #             return self.lowestCommonAncestor(root.right,p,q)
+    #         else:
+    #             return root
 
         #even cleaner, same approach without recursion:
         cur = root
