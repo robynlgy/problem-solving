@@ -34,7 +34,7 @@ class Solution:
 
         #[ # -> 1 -> 2 -> # ]
 
-# ========= recursive ver.2 =========
+# ========= recursive ver.2 ========= (think this is cleaner)
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         def reverse(cur, prev):
