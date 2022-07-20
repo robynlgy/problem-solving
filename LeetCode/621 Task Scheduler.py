@@ -12,7 +12,6 @@ class Solution:
         # maxHeap = [(-val,key) for i,(key,val) in enumerate(count.items())]
         maxHeap = [-cnt for cnt in count.values()] #O(26) + O(26)
         heapq.heapify(maxHeap) #O(26)
-        # print(maxHeap)
 
         time = 0
         queue = deque() # pairs of [-cnt,idleTime]
@@ -21,11 +20,9 @@ class Solution:
             time += 1
             if maxHeap:
                 cnt = heapq.heappop(maxHeap) + 1    #O(log(26))
-                # print("whats cnt",cnt)
                 if cnt:
                     queue.append([cnt,time+n])
             if queue and (queue[0][1] == time):
-                # cnt, time = queue.popleft()
                 heapq.heappush(maxHeap,queue.popleft()[0]) #O(log(26))
 
         return time
