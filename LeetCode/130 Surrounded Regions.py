@@ -19,33 +19,54 @@ class Solution:
 
         ROWS, COLS = len(board), len(board[0])
 
-        def capture(r, c):
-            if r < 0 or c < 0 or r == ROWS or c == COLS or board[r][c] != "O":
+        def capture(i,j):
+            if (i < 0 or i >= ROWS or j < 0 or j >= COLS or board[i][j] != 'O'):
                 return
-            board[r][c] = "T"
-            capture(r + 1, c)
-            capture(r - 1, c)
-            capture(r, c + 1)
-            capture(r, c - 1)
 
-        # 1. (DFS) Capture unsurrounded regions (O -> T)
+            board[i][j] = "T"
+
+            capture(i-1,j)
+            capture(i+1,j)
+            capture(i,j-1)
+            capture(i,j+1)
+
+        # this section can be replaced by code below:
+        # for i in range(ROWS):
+        #     if board[i][0] == 'O':
+        #         capture(i,0)
+        #     if board[i][COLS-1] == 'O':
+        #         capture(i,COLS-1)
+        # for j in range(1,COLS-1):
+        #     if board[0][j] == 'O':
+        #         capture(0,j)
+        #     if board[ROWS-1][j] == 'O':
+        #         capture(ROWS-1,j)
+
+        # 1. (DFS) Capture unsurrounded regions (O -> T), only look at border
         for r in range(ROWS):
             for c in range(COLS):
                 if board[r][c] == "O" and (r in [0, ROWS - 1] or c in [0, COLS - 1]):
                     capture(r, c)
 
         # 2. Capture surrounded regions (O -> X)
-        for r in range(ROWS):
-            for c in range(COLS):
-                if board[r][c] == "O":
-                    board[r][c] = "X"
+        for i in range(ROWS):
+            for j in range(COLS):
+                if board[i][j] == 'O':
+                    board[i][j] = 'X'
 
         # 3. Uncapture unsurrounded regions (T -> O)
-        for r in range(ROWS):
-            for c in range(COLS):
-                if board[r][c] == "T":
-                    board[r][c] = "O"
+        for i in range(ROWS):
+            for j in range(COLS):
+                if board[i][j] == 'T':
+                    board[i][j] = 'O'
 
+
+
+
+
+
+
+        #slooooowww
         #for each O, go up down left right, return true if reach an X, else false (oob)
 
 #         ROWS, COLS = len(board), len(board[0])
@@ -98,51 +119,3 @@ class Solution:
 
 #         for (i,j) in flippable:
 #             board[i][j] = 'X'
-
-# #   (2,3)
-
-# # [     0   1   2   3   4
-# #     ["O","X","X","O","X"],    0
-# #     ["X","O","O","X","O"],    1
-# #     ["X","O","X","O","X"],    2
-# #     ["O","X","O","O","O"],    3
-# #     ["X","X","O","X","O"]     4
-# # ]
-
-# # [
-# #     ["O","X","X","O","X"],
-# #     ["X","X","X","X","O"],
-# #     ["X","X","X","O","X"],
-# #     ["O","X","O","O","O"],
-# #     ["X","X","O","X","O"]
-# # ]
-
-# # input:
-# # [
-# #     ["O","X","O","O","X","X"],
-# #     ["O","X","X","X","O","X"],
-# #     ["X","O","O","X","O","O"],
-# #     ["X","O","X","X","X","X"],
-# #     ["O","O","X","O","X","X"],
-# #     ["X","X","O","O","O","O"]
-# # ]
-
-# # expected:
-# # [
-# #      ["O","X","O","O","X","X"],
-# #      ["O","X","X","X","O","X"],
-# #      ["X","O","O","X","O","O"],
-# #      ["X","O","X","X","X","X"],
-# #      ["O","O","X","O","X","X"],
-# #      ["X","X","O","O","O","O"]
-# # ]
-
-# # output:
-# # [
-# #     ["O","X","O","O","X","X"],
-# #     ["O","X","X","X","O","X"],
-# #     ["X","O","X","X","O","O"],
-# #     ["X","O","X","X","X","X"],
-# #     ["O","O","X","O","X","X"],
-# #     ["X","X","O","O","O","O"]
-# # ]
